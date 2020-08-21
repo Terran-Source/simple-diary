@@ -8,11 +8,11 @@ const connectDb = async (mongoConfig) => {
       useFindAndModify: false,
     });
 
-    console.log(
+    process.logger.info(
       `Mongo DB connected to ${connect.connection.host} and database ${connect.connection.db.databaseName}`
     );
   } catch (error) {
-    console.error(error);
+    process.logger.error(error);
     process.exit(1);
   }
 };
