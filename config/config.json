@@ -1,0 +1,18 @@
+{
+  "appName": "Simple Diary",
+  "version": "0.1.0",
+  "port": "${PORT}",
+  "environment": "${NODE_ENV}",
+  "MONGO_DATABASE": "${=${appName}.split(' ').join('_').toLowerCase()=}",
+  "ENV_SUFFIX": "${=${environment}=='prod'?'':'_'+${environment}=}",
+  "db": {
+    "type": "mongo",
+    "mongo": {
+      "username": "${MONGO_USERNAME}",
+      "password": "${MONGO_PASSWORD}",
+      "database": "${MONGO_DATABASE}${ENV_SUFFIX}",
+      "server": "${MONGO_SERVER}",
+      "uri": "mongodb+srv://${db.mongo.username}:${=encodeURIComponent(${db.mongo.password})=}@${db.mongo.server}/${db.mongo.database}?retryWrites=true&w=majority"
+    }
+  }
+}
