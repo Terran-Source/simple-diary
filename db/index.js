@@ -1,4 +1,7 @@
+/// Connect to a database
 ///
+/// Currently supported
+/// - mongo
 const connectDb = async (dbConfig) => {
   var currentDbConfig = dbConfig[dbConfig.type];
   switch (dbConfig.type) {
