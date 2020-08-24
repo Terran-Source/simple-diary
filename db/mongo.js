@@ -12,7 +12,7 @@ const connectDb = async (mongoConfig) => {
       `Mongo DB connected to ${connect.connection.host} and database ${connect.connection.db.databaseName}`
     );
   } catch (error) {
-    process.logger.error(error);
+    process.logger.fatal({ err: error }, error.message);
     process.exit(1);
   }
 };

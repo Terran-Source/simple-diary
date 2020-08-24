@@ -17,16 +17,25 @@ if (error) {
 const app = express();
 
 // Add Logging
-const stackDriverConfig = require('./logger/stack-driver-config')(
-  process.appConfig.environment,
-  process.appConfig.appInstance,
-  process.appConfig.google
-);
-process.logger = logger(
-  app,
-  stackDriverConfig.logType,
-  stackDriverConfig.logConfig
-);
+let logConfig = {};
+switch (process.appConfig.logging.type) {
+  case 'morgan':
+    break;
+  case 'stackDriver':
+    const stackDriverConfig = require('./logger/stack-driver-config')(
+      process.appConfig.environment,
+      process.appConfig.appInstance,
+      process.appConfig.google
+    );
+    logConfig = stackDriverConfig.logConfig;
+    break;
+  default:
+    console.error(
+      `Logger of type ${process.appConfig.logging.type} is not supported yet`
+    );
+    process.exit(1);
+}
+process.logger = logger(app, process.appConfig.logging.type, logConfig);
 
 // Connect to Database
 connectDb(process.appConfig.db).then(() => {
