@@ -6,7 +6,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=prod node app",
     "dev": "cross-env NODE_ENV=dev nodemon app",
-    "local": "cross-env NODE_ENV=local nodemon app"
+    "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='logger/dummy.json' nodemon app"
   },
   "repository": {
     "type": "git",

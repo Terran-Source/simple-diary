@@ -18,6 +18,7 @@ const app = express();
 
 // Add Logging
 const stackDriverConfig = require('./logger/stack-driver-config')(
+  process.appConfig.environment,
   process.appConfig.appInstance,
   process.appConfig.google
 );

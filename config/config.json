@@ -3,21 +3,20 @@
   "version": "0.1.0",
   "port": "${PORT}",
   "environment": "${NODE_ENV}",
-  "APP_INSTANCE": "${=${appName}.split(' ').join('_').toLowerCase()=}",
   "ENV_SUFFIX": "${=${environment}=='prod'?'':'_'+${environment}=}",
-  "appInstance": "${APP_INSTANCE}${ENV_SUFFIX}",
+  "appInstance": "${=${appName}.split(' ').join('_').toLowerCase()=}",
+  "appInstanceEnvironment": "${appInstance}${ENV_SUFFIX}",
   "db": {
     "type": "mongo",
     "mongo": {
       "username": "${MONGO_USERNAME}",
       "password": "${MONGO_PASSWORD}",
-      "database": "${APP_INSTANCE}${ENV_SUFFIX}",
+      "database": "${appInstance}${ENV_SUFFIX}",
       "server": "${MONGO_SERVER}",
       "uri": "mongodb+srv://${db.mongo.username}:${=encodeURIComponent(${db.mongo.password})=}@${db.mongo.server}/${db.mongo.database}?retryWrites=true&w=majority"
     }
   },
   "google": {
-    "projectId": "${GOOGLE_PROJECT_ID}",
-    "keyFileName": "${GOOGLE_KEY_FILENAME}"
+    "projectId": "${GOOGLE_PROJECT_ID}"
   }
 }
