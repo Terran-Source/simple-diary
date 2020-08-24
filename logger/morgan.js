@@ -1,8 +1,8 @@
 const morgan = require('morgan');
+const prodEnvironments = ['prod', 'dr'];
 
 module.exports = (app) => {
-  if ('prod' !== process.appConfig.environment) {
+  if (!prodEnvironments.includes(process.appConfig.environment)) {
     app.use(morgan('dev'));
   }
-  return console;
 };

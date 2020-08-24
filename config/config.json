@@ -6,9 +6,6 @@
   "ENV_SUFFIX": "${=${environment}=='prod'?'':'_'+${environment}=}",
   "appInstance": "${=${appName}.split(' ').join('_').toLowerCase()=}",
   "appInstanceEnvironment": "${appInstance}${ENV_SUFFIX}",
-  "logging": {
-    "type": "stackDriver"
-  },
   "db": {
     "type": "mongo",
     "mongo": {

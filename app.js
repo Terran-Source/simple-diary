@@ -1,7 +1,8 @@
 const express = require('express');
+var expHbs = require('express-handlebars');
 const { loadConfig } = require('@terran-source/dotconfig');
-const connectDb = require('./db');
 const logger = require('./logger');
+const connectDb = require('./db');
 
 // Load app configuration
 const { error } = loadConfig(true, { path: './config/config.json' });
@@ -16,26 +17,21 @@ if (error) {
 // Initialize express
 const app = express();
 
+// Initialize handlebars template engine
+app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
+app.set('view engine', '.hbs');
+
 // Add Logging
-let logConfig = {};
-switch (process.appConfig.logging.type) {
-  case 'morgan':
-    break;
-  case 'stackDriver':
-    const stackDriverConfig = require('./logger/stack-driver-config')(
-      process.appConfig.environment,
-      process.appConfig.appInstance,
-      process.appConfig.google
-    );
-    logConfig = stackDriverConfig.logConfig;
-    break;
-  default:
-    console.error(
-      `Logger of type ${process.appConfig.logging.type} is not supported yet`
-    );
-    process.exit(1);
-}
-process.logger = logger(app, process.appConfig.logging.type, logConfig);
+require('./logger/morgan')(app);
+const stackDriverConfig = require('./logger/stack-driver-config')(
+  process.appConfig.environment,
+  process.appConfig.appInstance,
+  process.appConfig.google
+);
+process.logger = require('./logger/stack-driver')(stackDriverConfig.logConfig);
+
+// Adding Routes
+app.use('/', require('./routes'));
 
 // Connect to Database
 connectDb(process.appConfig.db).then(() => {
