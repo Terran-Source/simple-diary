@@ -109,3 +109,6 @@ logger/*.json
 
 # local app config
 config/config.local.json
+
+# temp folder
+.[tT]emp

@@ -6,3 +6,13 @@
 body {
   background: #F5F5F5 none;
 }
+
+.login-container {
+  text-align: center;
+  max-width: 360px;
+  margin: 12px auto;
+}
+
+p {
+  margin: 6px 0 !important;
+}
