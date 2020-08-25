@@ -8,6 +8,9 @@
     "dev": "cross-env NODE_ENV=dev nodemon app",
     "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='logger/dummy.json' nodemon app"
   },
+  "nodemonConfig": {
+    "ext": "js,mjs,json,ts,hbs,css"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/turn-a-round/simple-diary.git"

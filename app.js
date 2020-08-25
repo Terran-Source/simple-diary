@@ -1,7 +1,7 @@
 const express = require('express');
-var expHbs = require('express-handlebars');
+const expHbs = require('express-handlebars');
+const path = require('path');
 const { loadConfig } = require('@terran-source/dotconfig');
-const logger = require('./logger');
 const connectDb = require('./db');
 
 // Load app configuration
@@ -20,6 +20,9 @@ const app = express();
 // Initialize handlebars template engine
 app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
+
+// Static folder
+app.use(express.static(path.join(__dirname, 'assets')));
 
 // Add Logging
 require('./logger/morgan')(app);
