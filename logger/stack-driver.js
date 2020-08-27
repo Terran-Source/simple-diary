@@ -1,6 +1,6 @@
 const bunyan = require('bunyan');
 const { LoggingBunyan } = require('@google-cloud/logging-bunyan');
-const prodEnvironments = ['prod', 'dr'];
+const { isProd } = require('./common');
 
 const logger = (logConfig) => {
   // Creates a Bunyan StackDriver Logging client
@@ -9,9 +9,7 @@ const logger = (logConfig) => {
     //projectId: logConfig.projectId,
   });
 
-  const logLevel = prodEnvironments.includes(logConfig.environment)
-    ? 'info'
-    : 'trace';
+  const logLevel = isProd ? 'info' : 'trace';
 
   // Create a Bunyan logger that streams to StackDriver Logging
   // Logs will be written to: "projects/YOUR_PROJECT_ID/logs/bunyan_log"

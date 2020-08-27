@@ -1,8 +1,12 @@
 const morgan = require('morgan');
-const prodEnvironments = ['prod', 'dr'];
+const { isProd } = require('./common');
 
 module.exports = (app) => {
-  if (!prodEnvironments.includes(process.appConfig.environment)) {
-    app.use(morgan('dev'));
+  let morganTemplate =
+    ':method :url HTTP/:http-version :status :res[content-length] - :response-time ms';
+  if (!isProd) {
+    morganTemplate =
+      ':remote-addr :remote-user ' + morganTemplate + ' ":referrer"';
   }
+  app.use(morgan(morganTemplate));
 };

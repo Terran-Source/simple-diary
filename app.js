@@ -1,5 +1,6 @@
 const express = require('express');
 const expHbs = require('express-handlebars');
+const session = require('express-session');
 const path = require('path');
 const { loadConfig } = require('@terran-source/dotconfig');
 const connectDb = require('./db');
@@ -14,15 +15,11 @@ if (error) {
 //   'Application config:' + `\n${JSON.stringify(process.appConfig, null, 2)}`
 // );
 
+// For environment specific decisions
+const { isProd } = require('./logger/common');
+
 // Initialize express
 const app = express();
-
-// Initialize handlebars template engine
-app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
-app.set('view engine', '.hbs');
-
-// Static folder
-app.use(express.static(path.join(__dirname, 'assets')));
 
 // Add Logging
 require('./logger/morgan')(app);
@@ -33,11 +30,35 @@ const stackDriverConfig = require('./logger/stack-driver-config')(
 );
 process.logger = require('./logger/stack-driver')(stackDriverConfig.logConfig);
 
-// Adding Routes
-app.use('/', require('./routes'));
-
 // Connect to Database
-connectDb(process.appConfig.db).then(() => {
+connectDb(process.appConfig.db).then((connection) => {
+  //// Middleware
+  // - Handlebars template engine
+  app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
+  app.set('view engine', '.hbs');
+
+  // - Session
+  let sessionOptions = {
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false,
+  };
+  if (isProd) {
+    sessionOptions.cookie.secure = true;
+  }
+  app.use(session(sessionOptions));
+
+  // - Passport
+  require('./auth/passport')(app, connection);
+
+  // - Static folder
+  app.use(express.static(path.join(__dirname, 'assets')));
+
+  // - Routes
+  app.use('/', require('./routes'));
+  app.use('/auth', require('./routes/auth'));
+  //// Middleware
+
   // Start listening
   const port = process.appConfig.port || 80;
   app.listen(port, () => {

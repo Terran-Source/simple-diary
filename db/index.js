@@ -1,7 +1,15 @@
-/// Connect to a database
-///
-/// Currently supported
-/// - mongo
+/**
+ * Connect to a database
+ *
+ * Currently supported
+ * - mongo
+ *
+ * @param {Object} dbConfig - The Database configuration object. Varies depends
+ * upon the target database
+ * @param {string} dbConfig.type - The Database type. Can be [mongo]
+ * @param {string} dbConfig.uri - The Database connection-string uri. Varies
+ * depends upon the target database
+ */
 const connectDb = async (dbConfig) => {
   var currentDbConfig = dbConfig[dbConfig.type];
   switch (dbConfig.type) {

@@ -17,6 +17,8 @@
     }
   },
   "google": {
-    "projectId": "${GOOGLE_PROJECT_ID}"
+    "projectId": "${GOOGLE_PROJECT_ID}",
+    "clientId": "${GOOGLE_CLIENT_ID}",
+    "clientSecret": "${GOOGLE_CLIENT_Secret}"
   }
 }
