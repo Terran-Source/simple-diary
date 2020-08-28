@@ -1,6 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+// @desc  Home page
+// @route GET /
+router.get('/', (req, res) => {
+  res.redirect('/login');
+});
+
 // @desc  Landing/Login page
 // @route GET /login
 router.get('/login', (req, res) => {
