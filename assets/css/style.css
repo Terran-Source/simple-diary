@@ -16,3 +16,31 @@ body {
 p {
   margin: 6px 0 !important;
 }
+
+/* header nav override from materialize */
+nav .brand-logo i.material-icons,
+nav .brand-logo i[class*="fa-"] {
+  display: block;
+  font-size: 24px;
+  height: 56px;
+  line-height: 56px;
+}
+
+nav .brand-logo {
+  font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 601px) {
+
+  nav .brand-logo i.material-icons,
+  nav .brand-logo i[class*="fa-"] {
+    height: 64px;
+    line-height: 64px;
+  }
+
+  nav .brand-logo {
+    font-size: 2.1rem;
+  }
+}
+
+/* header nav override from materialize */
