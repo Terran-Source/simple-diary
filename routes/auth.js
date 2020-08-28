@@ -13,7 +13,7 @@ router.get(
 // @route GET /auth/google/callback
 router.get(
   '/google/callback',
-  passport.authenticate('google', { failureRedirect: '/' }),
+  passport.authenticate('google', { failureRedirect: '/login' }),
   (req, res) => res.redirect('/dashboard')
 );
 
@@ -21,7 +21,7 @@ router.get(
 // @route GET /auth/logout
 router.get('/logout', (req, res) => {
   req.logOut();
-  res.redirect('/');
+  res.redirect('/login');
 });
 
 module.exports = router;

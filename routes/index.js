@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // @desc  Landing/Login page
-// @route GET /
-router.get('/', (req, res) => {
+// @route GET /login
+router.get('/login', (req, res) => {
   res.render('login', { layout: 'login' });
 });
 
