@@ -5,24 +5,34 @@ const path = require('path');
 const { loadConfig } = require('@terran-source/dotconfig');
 const connectDb = require('./db');
 
+// DI instance
+global.injector = require('./injector');
+
 // Load app configuration
 const { error } = loadConfig(true, { path: './config/config.json' });
 if (error) {
   console.error(error);
   process.exit(1);
 }
-// console.log(
-//   'Application config:' + `\n${JSON.stringify(process.appConfig, null, 2)}`
-// );
 
 // For environment specific decisions
-const { isProd } = require('./logger/common');
+const { isProd, isLocal } = require('./logger/common');
+
+// inject globally used config
+injector.add('googleConfig', process.appConfig.google);
+
+if (isLocal) {
+  console.log(
+    'Application config:' + `\n${JSON.stringify(process.appConfig, null, 2)}`
+  );
+}
 
 // Initialize express
 const app = express();
+injector.add('app', app);
 
 // Add Logging
-require('./logger/morgan')(app);
+require('./logger/morgan')();
 const stackDriverConfig = require('./logger/stack-driver-config')(
   process.appConfig.environment,
   process.appConfig.appInstance,
@@ -31,7 +41,13 @@ const stackDriverConfig = require('./logger/stack-driver-config')(
 process.logger = require('./logger/stack-driver')(stackDriverConfig.logConfig);
 
 // Connect to Database
-connectDb(process.appConfig.db).then((connection) => {
+connectDb(process.appConfig.db).then((mongoose) => {
+  injector.add('mongoose', mongoose);
+
+  //// Services
+  require('./services/userService');
+  //// Services
+
   //// Middleware
   // - Handlebars template engine
   app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
@@ -39,7 +55,7 @@ connectDb(process.appConfig.db).then((connection) => {
 
   // - Session
   let sessionOptions = {
-    secret: 'keyboard cat',
+    secret: process.appConfig.session.secret,
     resave: false,
     saveUninitialized: false,
   };
@@ -49,7 +65,7 @@ connectDb(process.appConfig.db).then((connection) => {
   app.use(session(sessionOptions));
 
   // - Passport
-  require('./auth/passport')(app, connection);
+  require('./auth/passport')();
 
   // - Static folder
   app.use(express.static(path.join(__dirname, 'assets')));

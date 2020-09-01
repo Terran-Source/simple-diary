@@ -1,7 +1,8 @@
 const morgan = require('morgan');
 const { isProd } = require('./common');
+const app = injector.resolve('app');
 
-module.exports = (app) => {
+module.exports = () => {
   let morganTemplate =
     ':method :url HTTP/:http-version :status :res[content-length] - :response-time ms';
   if (!isProd) {

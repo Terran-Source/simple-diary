@@ -3,15 +3,18 @@
   "version": "0.1.0",
   "port": "${PORT}",
   "environment": "${NODE_ENV}",
-  "ENV_SUFFIX": "${=${environment}=='prod'?'':'_'+${environment}=}",
+  "envSuffix": "${=${environment}=='prod'?'':'_'+${environment}=}",
   "appInstance": "${=${appName}.split(' ').join('_').toLowerCase()=}",
-  "appInstanceEnvironment": "${appInstance}${ENV_SUFFIX}",
+  "appInstanceEnvironment": "${appInstance}${envSuffix}",
+  "session": {
+    "secret": "${SESSION_SECRET}"
+  },
   "db": {
     "type": "mongo",
     "mongo": {
       "username": "${MONGO_USERNAME}",
       "password": "${MONGO_PASSWORD}",
-      "database": "${appInstance}${ENV_SUFFIX}",
+      "database": "${appInstance}${envSuffix}",
       "server": "${MONGO_SERVER}",
       "uri": "mongodb+srv://${db.mongo.username}:${=encodeURIComponent(${db.mongo.password})=}@${db.mongo.server}/${db.mongo.database}?retryWrites=true&w=majority"
     }

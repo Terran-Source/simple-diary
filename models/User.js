@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const schemaVersion = 1; // update migration logic if changed
 
 const UserSchema = new mongoose.Schema({
   userId: {
@@ -40,6 +41,29 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  version: {
+    type: Number,
+    default: schemaVersion,
+  },
 });
 
-module.exports = (/*Mongoose */ conn) => conn.model('User', UserSchema);
+UserSchema.methods.migrateIfPossible = function () {
+  while ((this.version || 0) < schemaVersion) {
+    switch (this.version) {
+      // each case contains migration logic towards next schemaVersion
+      case 0: // e.g. contains migration logic towards next schemaVersion, i.e. 2
+        this.version += 1;
+        break;
+      default:
+        this.version = 0;
+        break;
+    }
+  }
+};
+
+UserSchema.methods.newLogin = function () {
+  this.migrateIfPossible();
+  this.lastLoggedOn = Date.now();
+};
+
+module.exports = UserSchema;

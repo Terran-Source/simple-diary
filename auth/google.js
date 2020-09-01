@@ -1,18 +1,11 @@
 const googleStrategy = require('passport-google-oauth20').Strategy;
 const { getUserId } = require('./common');
 const { isProd } = require('../logger/common');
+const userService = injector.resolve('userService');
+const passport = injector.resolve('passport');
+const googleConfig = injector.resolve('googleConfig');
 
-/**
- *
- * @param {PassportStatic} passport - Passport object used in the app
- */
-const googleAuth = (
-  /*PassportStatic*/ passport,
-  /*Mongoose */ mongoose,
-  googleConfig
-) => {
-  const User = require('../models/User')(mongoose);
-
+const googleAuth = () => {
   passport.use(
     new googleStrategy(
       {
@@ -28,16 +21,16 @@ const googleAuth = (
         }
 
         try {
-          await User.findOne({ userId }, async (err, user) => {
+          await userService.findOne({ userId }, async (err, user) => {
             if (err) {
               done(err, user);
             }
             if (user) {
-              user.lastLoggedOn = Date.now();
+              user.newLogin();
               await user.save();
               done(null, user);
             } else {
-              await User.create(
+              await userService.create(
                 {
                   userId,
                   providerId: profile.id,

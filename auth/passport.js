@@ -1,20 +1,16 @@
 const passport = require('passport');
-const googleAuth = require('./google');
+injector.add('passport', passport);
 const { getUserId } = require('./common');
+const userService = injector.resolve('userService');
+const app = injector.resolve('app');
 
-/**
- *
- * @param {Express} app - an Express app
- */
-const enablePassportAuth = (/*Express*/ app, /*Mongoose */ mongoose) => {
-  const User = require('../models/User')(mongoose);
-
-  googleAuth(passport, mongoose, process.appConfig.google);
+const enablePassportAuth = () => {
+  require('./google')();
 
   passport.serializeUser((user, done) => done(null, getUserId(user)));
 
   passport.deserializeUser((userId, done) => {
-    User.findOne({ userId }, (err, user) => done(err, user));
+    userService.findOne({ userId }, (err, user) => done(err, user));
   });
 
   app.use(passport.initialize());
