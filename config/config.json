@@ -6,8 +6,15 @@
   "envSuffix": "${=${environment}=='prod'?'':'_'+${environment}=}",
   "appInstance": "${=${appName}.split(' ').join('_').toLowerCase()=}",
   "appInstanceEnvironment": "${appInstance}${envSuffix}",
+  "appInfo": {
+    "appName": "${appName}",
+    "environment": "${environment}",
+    "appInstance": "${appInstance}",
+    "appInstanceEnvironment": "${appInstanceEnvironment}"
+  },
   "session": {
-    "secret": "${SESSION_SECRET}"
+    "secret": "${SESSION_SECRET}",
+    "collection": "web-sessions"
   },
   "db": {
     "type": "mongo",

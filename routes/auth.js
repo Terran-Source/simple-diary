@@ -21,6 +21,7 @@ router.get(
 // @route GET /auth/logout
 router.get('/logout', (req, res) => {
   req.logOut();
+  req.session.destroy();
   res.redirect('/login');
 });
 

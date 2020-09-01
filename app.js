@@ -20,6 +20,7 @@ const { isProd, isLocal } = require('./logger/common');
 
 // inject globally used config
 injector.add('googleConfig', process.appConfig.google);
+injector.add('appInfo', process.appConfig.appInfo);
 
 if (isLocal) {
   console.log(
@@ -33,11 +34,7 @@ injector.add('app', app);
 
 // Add Logging
 require('./logger/morgan')();
-const stackDriverConfig = require('./logger/stack-driver-config')(
-  process.appConfig.environment,
-  process.appConfig.appInstance,
-  process.appConfig.google
-);
+const stackDriverConfig = require('./logger/stack-driver-config')();
 process.logger = require('./logger/stack-driver')(stackDriverConfig.logConfig);
 
 // Connect to Database
@@ -54,10 +51,15 @@ connectDb(process.appConfig.db).then((mongoose) => {
   app.set('view engine', '.hbs');
 
   // - Session
+  const MongoStore = require('connect-mongo')(session);
   let sessionOptions = {
     secret: process.appConfig.session.secret,
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection,
+      collection: process.appConfig.session.collection,
+    }),
   };
   if (isProd) {
     sessionOptions.cookie.secure = true;
