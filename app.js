@@ -43,6 +43,7 @@ connectDb(process.appConfig.db).then((mongoose) => {
 
   //// Services
   require('./services/userService');
+  require('./services/storyService');
   //// Services
 
   //// Middleware
