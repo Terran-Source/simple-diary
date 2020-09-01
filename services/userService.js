@@ -1,4 +1,3 @@
-const injector = require('../injector');
 const UserSchema = require('../models/User');
 const mongoose = injector.resolve('mongoose');
 const userService = mongoose.model('User', UserSchema);
