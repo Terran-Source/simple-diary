@@ -3,19 +3,16 @@
   // Hover to view descriptions of existing attributes.
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
-  "configurations": [{
-    "type": "node",
-    "request": "launch",
-    "name": "Launch NPM local",
-    "cwd": "${workspaceRoot}",
-    "runtimeExecutable": "npm",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-    "runtimeArgs": [
-      "run", "local"
-    ],
-    "port": 5858,
-    // "program": "${workspaceFolder}/app.js"
-  }]
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch NPM local",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeArgs": ["run", "local"],
+      "port": 5858
+    }
+  ]
 }
