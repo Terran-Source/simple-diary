@@ -20,9 +20,12 @@ router.get(
 // @desc  Logout user
 // @route GET /auth/logout
 router.get('/logout', (req, res) => {
-  req.logOut();
-  req.session.destroy();
-  res.redirect('/login');
+  if (req.isAuthenticated()) {
+    req.user.logout();
+    req.logOut();
+    req.session.destroy();
+    res.redirect('/login');
+  } else res.redirect('/login');
 });
 
 module.exports = router;

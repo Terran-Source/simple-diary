@@ -67,6 +67,11 @@ UserSchema.methods.newLogin = function () {
   this.lastLoggedOn = Date.now();
 };
 
+UserSchema.methods.logout = function () {
+  this.lastLoggedOn = Date.now();
+  this.save();
+};
+
 UserSchema.methods.toDisplayJson = function () {
   return {
     displayName: this.displayName,
