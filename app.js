@@ -76,6 +76,7 @@ connectDb(process.appConfig.db).then((mongoose) => {
   // - Routes
   app.use('/', require('./routes'));
   app.use('/auth', require('./routes/auth'));
+  app.use('/stories', require('./routes/stories'));
   //// Middleware
 
   // Start listening

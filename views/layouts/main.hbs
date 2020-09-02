@@ -18,6 +18,7 @@
 
 <body>
   {{> _header}}
+  {{> _add_story}}
   <div class="container">
     {{{body}}}
   </div>
@@ -25,8 +26,9 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sideNav = document.querySelector('ul.sidenav');
-      var sideNavOptions = {};
-      M.Sidenav.init(sideNav, sideNavOptions);
+      M.Sidenav.init(sideNav, {});
+      var formSelects = document.querySelector('select.form-select');
+      M.FormSelect.init(formSelects);
     });
   </script>
 </body>

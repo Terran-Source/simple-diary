@@ -44,3 +44,9 @@ nav .brand-logo {
 }
 
 /* header nav override from materialize */
+
+.switch label {
+  cursor: pointer;
+  font-size: 1rem;
+  color: #9e9e9e;
+}
