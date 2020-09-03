@@ -5,6 +5,14 @@
 
 body {
   background: #F5F5F5 none;
+  font-family: 'Noto Sans',
+    Roboto,
+    "Segoe UI",
+    Oxygen-Sans,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif;
 }
 
 .login-container {
