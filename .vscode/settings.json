@@ -4,6 +4,7 @@
         "crossorigin",
         "esversion",
         "resave",
-        "saslprep"
+        "saslprep",
+        "topnav"
     ]
 }
