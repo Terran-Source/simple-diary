@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated, ensureGuest } = require('../middleware/auth');
-const storyService = injector.resolve('storyService');
+const journalService = injector.resolve('journalService');
 
 // @desc  Home page
 // @route GET /
@@ -21,7 +21,7 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
   try {
     res.render('dashboard', {
       user: req.user.toDisplayJson(),
-      stories: await storyService.userStories(req.user._id),
+      journals: await journalService.userJournals(req.user._id),
     });
   } catch (error) {
     process.logger.error({ err: error }, error.message);

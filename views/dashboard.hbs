@@ -1,7 +1,7 @@
 <h6>Dashboard</h6>
 <h3>Welcome {{user.displayName}}</h3>
 <p>Last logged on {{user.lastLoggedOn}}</p>
-{{#if stories}}
+{{#if journals}}
 <p>Your diary entries...</p>
 <table class="striped">
   <thead>
@@ -14,9 +14,9 @@
     </tr>
   </thead>
   <tbody>
-    {{#each stories}}
+    {{#each journals}}
     <tr>
-      <td><a href="/stories/{{_id}}"></a>{{title}}</td>
+      <td><a href="/journals/{{_id}}"></a>{{title}}</td>
       <td>{{createdOn}}</td>
       <td>{{updatedOn}}</td>
       <td><span class="dash-status">{{status}}</span></td>

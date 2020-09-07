@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // const moment = require('moment');
 const schemaVersion = 1; // update migration logic if changed
 
-const StorySchema = new mongoose.Schema({
+const JournalSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -16,23 +16,29 @@ const StorySchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  status: {
-    type: String,
+  isPublished: {
+    type: Boolean,
     required: true,
-    enum: ['Draft', 'Published'],
+    default: false,
+    alias: 'published',
   },
-  private: {
+  isPrivate: {
     type: Boolean,
     required: true,
     default: true,
+    alias: 'private',
+  },
+  journalDate: {
+    type: Date,
+    required: true,
   },
   locale: String,
   images: [String],
-  createdOn: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
-  updatedOn: {
+  updatedAt: {
     type: Date,
     default: Date.now,
   },
@@ -42,7 +48,7 @@ const StorySchema = new mongoose.Schema({
   },
 });
 
-StorySchema.methods.migrateIfPossible = function () {
+JournalSchema.methods.migrateIfPossible = function () {
   while ((this.version || 0) < schemaVersion) {
     switch (this.version) {
       // each case contains migration logic towards next schemaVersion
@@ -56,12 +62,12 @@ StorySchema.methods.migrateIfPossible = function () {
   }
 };
 
-StorySchema.methods.updateStory = function () {
+JournalSchema.methods.updateJournal = function () {
   this.migrateIfPossible();
   this.updatedOn = Date.now();
 };
 
-// StorySchema.methods.toDisplayJson = function () {
+// JournalSchema.methods.toDisplayJson = function () {
 //   return {
 //     title: this.title,
 //     body: this.body,
@@ -70,4 +76,4 @@ StorySchema.methods.updateStory = function () {
 //   };
 // };
 
-module.exports = StorySchema;
+module.exports = JournalSchema;

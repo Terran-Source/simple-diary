@@ -8,10 +8,11 @@
 
 <body>
   {{> _header}}
-  {{> _btn_add}}
-  <div class="container">
+  <main class="container">
+    {{> _btn_add}}
     {{{body}}}
-  </div>
+  </main>
+  {{> _footer}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

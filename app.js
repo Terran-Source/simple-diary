@@ -43,7 +43,7 @@ connectDb(process.appConfig.db).then((mongoose) => {
 
   //// Services
   require('./services/userService');
-  require('./services/storyService');
+  require('./services/journalService');
   //// Services
 
   //// Middleware
@@ -76,7 +76,7 @@ connectDb(process.appConfig.db).then((mongoose) => {
   // - Routes
   app.use('/', require('./routes'));
   app.use('/auth', require('./routes/auth'));
-  app.use('/stories', require('./routes/stories'));
+  app.use('/journals', require('./routes/journals'));
   //// Middleware
 
   // Start listening
