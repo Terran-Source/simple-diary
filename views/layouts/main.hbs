@@ -13,15 +13,7 @@
     {{{body}}}
   </main>
   {{> _footer}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var sideNav = document.querySelector('ul.sidenav');
-      M.Sidenav.init(sideNav, {});
-      var formSelects = document.querySelector('select.form-select');
-      M.FormSelect.init(formSelects);
-    });
-  </script>
+  {{> _scripts}}
 </body>
 
 </html>

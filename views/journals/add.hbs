@@ -19,8 +19,11 @@
     </div> --}}
 
     <div class="row">
-      <div class="col s12 m4 l2">
-        <label for="journal-status">Publish Status</label>
+      <div class="col s12 m4 l3">
+        <label class="tipped" data-position="top"
+          data-tooltip="Automatic. If it's public, it'll be visible to others once you publish">
+          Publish Status <i class="fas fa-info-circle"></i>
+        </label>
         <div class="divider"></div>
         <div class="section switch">
           <label>
@@ -32,13 +35,16 @@
         </div>
       </div>
 
-      <div class="col s12 m4 l2">
-        <label for="journal-privacy">Privacy</label>
+      <div class="col s12 m4 l3">
+        <label class="tipped" data-position="top"
+          data-tooltip="Once it's Public & someone interacts with it (likes, comments etc.), it cannot be changed back to Private">
+          Privacy <i class="fas fa-info-circle"></i>
+        </label>
         <div class="divider"></div>
         <div class="section switch">
           <label>
             <span class="green-text text-darken-3">Public</span>
-            <input type="checkbox" id="journal-privacy" name="private">
+            <input type="checkbox" id="journal-privacy" name="private" checked>
             <span class="lever"></span>
             <span class="amber-text text-darken-3">Private</span>
           </label>

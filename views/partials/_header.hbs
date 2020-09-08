@@ -1,18 +1,14 @@
 <header>
   <nav class="gradient-45deg-green-teal">
     <div class="nav-wrapper container">
-      <a href="/" class="brand-logo center"><i class="fas fa-book"></i>Simple Diary</a>
+      <a href="/" class="brand-logo"><i class="fas fa-book"></i>Simple Diary</a>
       <a href="#" data-target="head-sidenav" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
       <ul class="right topnav hide-on-med-and-down head-menu" id="head-menu">
-        <li><a href="/dashboard"><i class="fas fa-atlas"></i>Dashboard</a></li>
-        <li><a href="/journals"><i class="fas fa-book-reader"></i>Public Journals</a></li>
-        <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+        {{> _menu}}
       </ul>
     </div>
-    <ul class="sidenav head-menu sidenav-dark" id="head-sidenav">
-      <li><a href="/dashboard"><i class="fas fa-atlas"></i>Dashboard</a></li>
-      <li><a href="/journals"><i class="fas fa-book-reader"></i>Public Journals</a></li>
-      <li><a href="/auth/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+    <ul class="sidenav head-menu sidenav-dark red-shade" id="head-sidenav">
+      {{> _menu}}
     </ul>
   </nav>
 </header>
