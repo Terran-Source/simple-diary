@@ -3,6 +3,7 @@
         "ESNEXT",
         "Sidenav",
         "crossorigin",
+        "downlevel",
         "esversion",
         "resave",
         "saslprep",

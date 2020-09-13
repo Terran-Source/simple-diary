@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
+import mongoose from 'mongoose';
+import moment from 'moment';
 const schemaVersion = 1; // update migration logic if changed
 
 const UserSchema = new mongoose.Schema({
@@ -82,4 +82,4 @@ UserSchema.methods.toDisplayJson = function () {
   };
 };
 
-module.exports = UserSchema;
+export default UserSchema;

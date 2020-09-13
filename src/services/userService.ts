@@ -1,6 +1,6 @@
-const UserSchema = require('../models/User');
+import UserSchema from '../models/User';
 const mongoose = Injector.resolve('mongoose');
 const userService = mongoose.model('User', UserSchema);
 Injector.add('userService', userService);
 
-module.exports = userService;
+export default userService;

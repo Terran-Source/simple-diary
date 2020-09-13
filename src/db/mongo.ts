@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
  */
 const connectDb = async (mongoConfig: any): Promise<typeof mongoose> => {
   try {
+    Logger.info(`Connecting Mongo DB...`);
     const connect = await mongoose.connect(mongoConfig.uri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

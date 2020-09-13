@@ -2,7 +2,7 @@
 // import Injector from 'injector';
 // import Logger from 'bunyan';
 
-//// Hell for D-R-Y
+//// F*kc D-R-Y
 interface Injector {
   add(service: string, instance: any): void;
   resolve(service: string): any;

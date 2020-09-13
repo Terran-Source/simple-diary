@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-// const moment = require('moment');
+import mongoose from 'mongoose';
+// import moment from 'moment';
 const schemaVersion = 1; // update migration logic if changed
 
 const JournalSchema = new mongoose.Schema({
@@ -76,4 +76,4 @@ JournalSchema.methods.updateJournal = function () {
 //   };
 // };
 
-module.exports = JournalSchema;
+export default JournalSchema;
