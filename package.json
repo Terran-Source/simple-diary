@@ -2,14 +2,25 @@
   "name": "simple-diary",
   "version": "0.1.0",
   "description": "A Simple Diary application in Node with Express, BigData, Auth",
-  "main": "app.js",
+  "main": "dist/app.js",
+  "type": "dist/app.d.ts",
   "scripts": {
-    "start": "cross-env NODE_ENV=prod node app",
-    "dev": "cross-env NODE_ENV=dev nodemon app",
-    "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon app"
+    "start": "cross-env NODE_ENV=prod node dist/app",
+    "dev": "cross-env NODE_ENV=dev nodemon src/app",
+    "prod": "npm run build && npm start",
+    "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon src/app.ts",
+    "local:j": "npm run build && cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon dist/app.js",
+    "build": "npm run clean && tsc",
+    "ts": "node -r ts-node/register",
+    "clean": "rm -rf dist yarn-error.log tsconfig.tsbuildinfo",
+    "clean-all": "rm -rf node_modules dist yarn.lock yarn-error.log tsconfig.tsbuildinfo"
   },
   "nodemonConfig": {
-    "ext": "js,mjs,json,ts,hbs,css"
+    "ext": "js,mjs,json,ts,hbs,css",
+    "watch": [
+      "src/",
+      "config/"
+    ]
   },
   "repository": {
     "type": "git",
@@ -39,14 +50,23 @@
     "express-session": "^1.17.1",
     "method-override": "^3.0.0",
     "moment": "^2.27.0",
-    "mongoose": "^5.10.2",
+    "mongoose": "^5.10.3",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "saslprep": "^1.0.3"
   },
   "devDependencies": {
+    "@types/bunyan": "^1.8.6",
+    "@types/express": "^4.17.8",
+    "@types/express-handlebars": "^3.1.0",
+    "@types/express-session": "^1.17.0",
+    "@types/mongoose": "^5.7.36",
+    "@types/morgan": "^1.9.1",
+    "@types/node": "^14.6.4",
     "cross-env": "^7.0.2",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   }
 }
