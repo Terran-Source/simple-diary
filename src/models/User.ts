@@ -48,7 +48,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.migrateIfPossible = function () {
+UserSchema.methods.migrateIfPossible = function (): void {
   while ((this.version || 0) < schemaVersion) {
     switch (this.version) {
       // each case contains migration logic towards next schemaVersion
@@ -62,7 +62,7 @@ UserSchema.methods.migrateIfPossible = function () {
   }
 };
 
-UserSchema.methods.newLogin = function () {
+UserSchema.methods.newLogin = function (): void {
   this.migrateIfPossible();
   this.lastLoggedOn = Date.now();
 };
@@ -72,7 +72,7 @@ UserSchema.methods.logout = function () {
   this.save();
 };
 
-UserSchema.methods.toDisplayJson = function () {
+UserSchema.methods.toDisplayJson = function (): Object {
   return {
     displayName: this.displayName,
     name: { firstName: this.name.firstName, lastName: this.name.lastName },

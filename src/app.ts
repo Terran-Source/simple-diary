@@ -1,13 +1,12 @@
+// DI instance
+import InjectorBase from './injector';
+global.Injector = new InjectorBase();
+
 import express from 'express';
 import expHbs from 'express-handlebars';
 import session from 'express-session';
 import path from 'path';
-import connectDb from './db/mongo';
-import InjectorBase from './injector';
 const { loadConfig } = require('@terran-source/dotconfig');
-
-// DI instance
-global.Injector = new InjectorBase();
 
 // Load app configuration
 const { parsed, error } = loadConfig(true, { path: 'config/config.json' });
@@ -15,14 +14,13 @@ if (error) {
   console.error(error);
   process.exit(1);
 }
-//process.appConfig = parsed;
-
-// For environment specific decisions
-const { isProd, isLocal } = require('./logger/common');
 
 // inject globally used config
 Injector.add('googleConfig', process.appConfig.google);
 Injector.add('appInfo', process.appConfig.appInfo);
+
+// For environment specific decisions
+import { isProd, isLocal } from './logger/common';
 
 if (isLocal) {
   console.log(
@@ -47,15 +45,16 @@ if (null !== stackDriverConfig) {
   process.exit(1);
 }
 
+// other imports depends upon previous resolvers
+import connectDb from './db/mongo';
+//// Services
+require('./services/userService');
+require('./services/journalService');
+//// Services
+import enablePassportAuth from './auth/passport';
+
 // Connect to Database
 connectDb(process.appConfig.db['mongo']).then((mongoose) => {
-  Injector.add('mongoose', mongoose);
-
-  //// Services
-  require('./services/userService');
-  require('./services/journalService');
-  //// Services
-
   //// Middleware
   // - Handlebars template engine
   app.set('views', path.join(__dirname, 'views'));
@@ -80,7 +79,7 @@ connectDb(process.appConfig.db['mongo']).then((mongoose) => {
   app.use(session(sessionOptions));
 
   // - Passport
-  require('./auth/passport')();
+  enablePassportAuth();
 
   // - Static folder
   app.use(express.static(path.join(__dirname, 'assets')));

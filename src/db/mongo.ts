@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+Injector.add('mongoose', mongoose);
 
 /**
  * Connect to a remote mongo db.
@@ -26,3 +27,4 @@ const connectDb = async (mongoConfig: any): Promise<typeof mongoose> => {
 };
 
 export default connectDb;
+export { mongoose };

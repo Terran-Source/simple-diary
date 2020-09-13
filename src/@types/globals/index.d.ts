@@ -229,6 +229,8 @@ interface Logger {
 declare var Injector: Injector;
 declare var Logger: Logger;
 
+type done = (err: any, id?: unknown) => void;
+
 declare namespace NodeJS {
   export interface Process {
     appConfig: any;

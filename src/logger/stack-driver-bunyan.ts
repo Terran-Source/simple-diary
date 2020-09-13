@@ -1,6 +1,6 @@
 import Logger from 'bunyan';
 import { LoggingBunyan } from '@google-cloud/logging-bunyan';
-const { isProd } = require('./common');
+import { isProd } from './common';
 
 export interface StackDriverConfig {
   environment: string;
