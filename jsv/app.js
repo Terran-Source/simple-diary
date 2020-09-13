@@ -3,7 +3,7 @@ const expHbs = require('express-handlebars');
 const session = require('express-session');
 const path = require('path');
 const { loadConfig } = require('@terran-source/dotconfig');
-const connectDb = require('./db');
+import connectDb from './db/mongo';
 
 // DI instance
 global.injector = require('./injector');

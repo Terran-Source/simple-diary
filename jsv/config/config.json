@@ -1,0 +1,34 @@
+{
+  "appName": "Simple Diary",
+  "version": "0.1.0",
+  "port": "${PORT}",
+  "environment": "${NODE_ENV}",
+  "envSuffix": "${=${environment}=='prod'?'':'_'+${environment}=}",
+  "appInstance": "${=${appName}.split(' ').join('_').toLowerCase()=}",
+  "appInstanceEnvironment": "${appInstance}${envSuffix}",
+  "appInfo": {
+    "appName": "${appName}",
+    "environment": "${environment}",
+    "appInstance": "${appInstance}",
+    "appInstanceEnvironment": "${appInstanceEnvironment}"
+  },
+  "session": {
+    "secret": "${SESSION_SECRET}",
+    "collection": "web-sessions"
+  },
+  "db": {
+    "type": "mongo",
+    "mongo": {
+      "username": "${MONGO_USERNAME}",
+      "password": "${MONGO_PASSWORD}",
+      "database": "${appInstance}${envSuffix}",
+      "server": "${MONGO_SERVER}",
+      "uri": "mongodb+srv://${db.mongo.username}:${=encodeURIComponent(${db.mongo.password})=}@${db.mongo.server}/${db.mongo.database}?retryWrites=true&w=majority"
+    }
+  },
+  "google": {
+    "projectId": "${GOOGLE_PROJECT_ID}",
+    "clientId": "${GOOGLE_CLIENT_ID}",
+    "clientSecret": "${GOOGLE_CLIENT_Secret}"
+  }
+}
