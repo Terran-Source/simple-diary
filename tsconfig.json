@@ -85,6 +85,6 @@
     /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./jsv/", "./dist", "node_modules", "**/*.spec.ts"]
+  "include": ["./src/"],
+  "exclude": ["./jsv/", "./dist", "node_modules", "**/*.spec.ts", "./src/assets/js"]
 }
