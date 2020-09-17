@@ -226,6 +226,7 @@ interface Logger {
 }
 
 // global variables
+declare var appConfig: any;
 declare var Injector: Injector;
 declare var Logger: Logger;
 

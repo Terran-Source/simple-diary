@@ -6,25 +6,26 @@ import express from 'express';
 import expHbs from 'express-handlebars';
 import session from 'express-session';
 import path from 'path';
-const { loadConfig } = require('@terran-source/dotconfig');
+const { loadConfig } = require('dots-config');
 
 // Load app configuration
-const { parsed, error } = loadConfig(true, { path: 'config/config.json' });
-if (error) {
+try {
+  global.appConfig = loadConfig(true, { path: 'config/config.json' });  
+} catch (error) {
   console.error(error);
   process.exit(1);
 }
 
 // inject globally used config
-Injector.add('googleConfig', process.appConfig.google);
-Injector.add('appInfo', process.appConfig.appInfo);
+Injector.add('googleConfig', appConfig.google);
+Injector.add('appInfo', appConfig.appInfo);
 
 // For environment specific decisions
 import { isProd, isLocal } from './logger/common';
 
 if (isLocal) {
   console.log(
-    'Application config:' + `\n${JSON.stringify(process.appConfig, null, 2)}`
+    'Application config:' + `\n${JSON.stringify(appConfig, null, 2)}`
   );
 }
 
@@ -54,7 +55,7 @@ require('./services/journalService');
 import enablePassportAuth from './auth/passport';
 
 // Connect to Database
-connectDb(process.appConfig.db['mongo']).then((mongoose) => {
+connectDb(appConfig.db['mongo']).then((mongoose) => {
   //// Middleware
   // - Handlebars template engine
   app.set('views', path.join(__dirname, 'views'));
@@ -64,12 +65,12 @@ connectDb(process.appConfig.db['mongo']).then((mongoose) => {
   // - Session
   const MongoStore = require('connect-mongo')(session);
   let sessionOptions: session.SessionOptions = {
-    secret: process.appConfig.session.secret,
+    secret: appConfig.session.secret,
     resave: false,
     saveUninitialized: false,
     store: new MongoStore({
       mongooseConnection: mongoose.connection,
-      collection: process.appConfig.session.collection,
+      collection: appConfig.session.collection,
     }),
   };
   if (isProd) {
@@ -91,11 +92,11 @@ connectDb(process.appConfig.db['mongo']).then((mongoose) => {
   //// Middleware
 
   // Start listening
-  const port = process.appConfig.port || 80;
+  const port = appConfig.port || 80;
   app.listen(port, () => {
     Logger.info(
-      `Application "${process.appConfig.appName}" is running` +
-        ` in "${process.appConfig.environment}" mode on port: ${port}`
+      `Application "${appConfig.appName}" is running` +
+        ` in "${appConfig.environment}" mode on port: ${port}`
     );
   });
 });
