@@ -16,12 +16,7 @@
     "clean-all": "rm -rf node_modules dist yarn.lock yarn-error.log tsconfig.tsbuildinfo"
   },
   "nodemonConfig": {
-    "ext": "js,mjs,json,ts,hbs,css",
-    "watch": [
-      "assets/",
-      "views/",
-      "config/"
-    ]
+    "ext": "js,mjs,json,ts,hbs,css"
   },
   "repository": {
     "type": "git",

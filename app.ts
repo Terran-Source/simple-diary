@@ -10,7 +10,7 @@ const { loadConfig } = require('dots-config');
 
 // Load app configuration
 try {
-  global.appConfig = loadConfig(true, { path: 'config/config.json' });  
+  global.appConfig = loadConfig(true, { path: 'config/config.json' });
 } catch (error) {
   console.error(error);
   process.exit(1);
