@@ -5,10 +5,10 @@
   "main": "dist/app.js",
   "type": "dist/app.d.ts",
   "scripts": {
-    "start": "cross-env NODE_ENV=prod node dist/app",
-    "dev": "cross-env NODE_ENV=dev nodemon src/app",
+    "start": "cross-env NODE_ENV=prod node -r ts-node/register app.ts",
+    "dev": "cross-env NODE_ENV=dev nodemon app.ts",
     "prod": "npm run build && npm start",
-    "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon src/app.ts | bunyan",
+    "local": "cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon app.ts | bunyan",
     "local:j": "npm run build && cross-env NODE_ENV=local GOOGLE_APPLICATION_CREDENTIALS='config/.temp/dummy.json' nodemon dist/app.js | bunyan",
     "build": "npm run clean && tsc",
     "ts": "node -r ts-node/register",
@@ -18,7 +18,8 @@
   "nodemonConfig": {
     "ext": "js,mjs,json,ts,hbs,css",
     "watch": [
-      "src/",
+      "assets/",
+      "views/",
       "config/"
     ]
   },
@@ -44,6 +45,7 @@
     "@google-cloud/logging-bunyan": "^3.0.1",
     "bunyan": "^1.8.14",
     "connect-mongo": "^3.2.0",
+    "cross-env": "^7.0.2",
     "custom-exception": "^0.1.2",
     "dots-config": "^2.0.0",
     "express": "^4.17.1",
@@ -55,7 +57,9 @@
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
-    "saslprep": "^1.0.3"
+    "saslprep": "^1.0.3",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.6",
@@ -67,10 +71,7 @@
     "@types/node": "^14.11.1",
     "@types/passport": "^1.0.4",
     "@types/passport-google-oauth20": "^2.0.4",
-    "cross-env": "^7.0.2",
     "gulp": "^4.0.2",
-    "nodemon": "^2.0.4",
-    "ts-node": "^9.0.0",
-    "typescript": "^4.0.2"
+    "nodemon": "^2.0.4"
   }
 }
