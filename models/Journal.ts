@@ -31,6 +31,7 @@ const JournalSchema = new mongoose.Schema({
   journalDate: {
     type: Date,
     required: true,
+    alias: 'date',
   },
   locale: String,
   images: [String],

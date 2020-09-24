@@ -33,6 +33,10 @@ if (isLocal) {
 const app = express();
 Injector.add('app', app);
 
+// Body Parsers
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 // Add Logging
 import morganLog from './logger/morgan';
 morganLog();

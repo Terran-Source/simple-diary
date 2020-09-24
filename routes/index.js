@@ -21,7 +21,7 @@ router.get('/dashboard', ensureAuthenticated, async (req, res) => {
   try {
     res.render('dashboard', {
       user: req.user.toDisplayJson(),
-      journals: await journalService.userJournals(req.user._id),
+      journals: await journalService.userJournals(req.user.id),
     });
   } catch (error) {
     Logger.error({ err: error }, error.message);
