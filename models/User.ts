@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const moment = require('moment');
+import mongoose from 'mongoose';
+import moment from 'moment';
+import extend from 'extend';
 const schemaVersion = 1; // update migration logic if changed
 
 const UserSchema = new mongoose.Schema({
@@ -48,7 +49,7 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.migrateIfPossible = function () {
+UserSchema.methods.migrateIfPossible = function (): void {
   while ((this.version || 0) < schemaVersion) {
     switch (this.version) {
       // each case contains migration logic towards next schemaVersion
@@ -62,7 +63,7 @@ UserSchema.methods.migrateIfPossible = function () {
   }
 };
 
-UserSchema.methods.newLogin = function () {
+UserSchema.methods.newLogin = function (): void {
   this.migrateIfPossible();
   this.lastLoggedOn = Date.now();
 };
@@ -72,14 +73,12 @@ UserSchema.methods.logout = function () {
   this.save();
 };
 
-UserSchema.methods.toDisplayJson = function () {
-  return {
-    displayName: this.displayName,
-    name: { firstName: this.name.firstName, lastName: this.name.lastName },
+UserSchema.methods.toDisplayJson = function (): Object {
+  return extend(true, this.toJSON(), {
     lastLoggedOn: moment(this.lastLoggedOn).fromNow(),
     // .format('[Last logged on] dddd, Do MMM YYYY, h:mm:ss a'),
     image: this.images[0],
-  };
+  });
 };
 
-module.exports = UserSchema;
+export default UserSchema;

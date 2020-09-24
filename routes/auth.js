@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const passport = injector.resolve('passport');
+const passport = Injector.resolve('passport');
 
 // @desc  Auth with Google
 // @route GET /auth/google

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated } = require('../middleware/auth');
-const journalService = injector.resolve('journalService');
+const journalService = Injector.resolve('journalService');
 
 // @desc  Add journals page
 // @route GET /journals/add

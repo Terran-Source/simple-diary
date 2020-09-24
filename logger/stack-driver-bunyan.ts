@@ -1,8 +1,14 @@
-const bunyan = require('bunyan');
-const { LoggingBunyan } = require('@google-cloud/logging-bunyan');
-const { isProd } = require('./common');
+import Logger from 'bunyan';
+import { LoggingBunyan } from '@google-cloud/logging-bunyan';
+import { isProd } from './common';
 
-const logger = (logConfig) => {
+export interface StackDriverConfig {
+  environment: string;
+  appInstance: string;
+  projectId: string;
+}
+
+const bunyanLogger = (logConfig: StackDriverConfig): Logger => {
   // Creates a Bunyan StackDriver Logging client
   const loggingBunyan = new LoggingBunyan({
     logName: `${logConfig.appInstance}_log`,
@@ -13,7 +19,7 @@ const logger = (logConfig) => {
 
   // Create a Bunyan logger that streams to StackDriver Logging
   // Logs will be written to: "projects/YOUR_PROJECT_ID/logs/bunyan_log"
-  const logger = bunyan.createLogger({
+  const initiatedLogger = Logger.createLogger({
     // The JSON payload of the log as it appears in StackDriver Logging
     name: logConfig.appInstance,
     src: true,
@@ -29,7 +35,7 @@ const logger = (logConfig) => {
     environment: logConfig.environment,
     logType: 'application-log',
   });
-  return logger;
+  return initiatedLogger;
 };
 
-module.exports = logger;
+export default bunyanLogger;
