@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import moment from 'moment';
+import extend from 'extend';
 const schemaVersion = 1; // update migration logic if changed
 
 const UserSchema = new mongoose.Schema({
@@ -73,13 +74,11 @@ UserSchema.methods.logout = function () {
 };
 
 UserSchema.methods.toDisplayJson = function (): Object {
-  return {
-    displayName: this.displayName,
-    name: { firstName: this.name.firstName, lastName: this.name.lastName },
+  return extend(true, this.toJSON(), {
     lastLoggedOn: moment(this.lastLoggedOn).fromNow(),
     // .format('[Last logged on] dddd, Do MMM YYYY, h:mm:ss a'),
     image: this.images[0],
-  };
+  });
 };
 
 export default UserSchema;

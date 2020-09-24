@@ -67,13 +67,4 @@ JournalSchema.methods.updateJournal = function () {
   this.updatedOn = Date.now();
 };
 
-// JournalSchema.methods.toDisplayJson = function () {
-//   return {
-//     title: this.title,
-//     body: this.body,
-//     updatedOn: moment(this.updatedOn).fromNow(),
-//     images: this.images,
-//   };
-// };
-
 export default JournalSchema;
