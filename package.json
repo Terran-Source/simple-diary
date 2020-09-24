@@ -2,8 +2,8 @@
   "name": "simple-diary",
   "version": "0.1.0",
   "description": "A Simple Diary application in Node with Express, BigData, Auth",
-  "main": "dist/app.js",
-  "type": "dist/app.d.ts",
+  "main": "app.ts",
+  "type": "app.d.ts",
   "scripts": {
     "start": "cross-env NODE_ENV=prod node -r ts-node/register app.ts",
     "dev": "cross-env NODE_ENV=dev nodemon app.ts",

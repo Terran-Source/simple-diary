@@ -1,6 +1,6 @@
 import passport from 'passport';
 Injector.add('passport', passport);
-const userService = Injector.resolve('userService');
+const userService = Injector.resolve('UserService');
 const app = Injector.resolve('app');
 import googleAuth from './google';
 

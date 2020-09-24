@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { ensureAuthenticated, ensureGuest } = require('../middleware/auth');
-const journalService = Injector.resolve('journalService');
+const journalService = Injector.resolve('JournalService');
 
 // @desc  Home page
 // @route GET /

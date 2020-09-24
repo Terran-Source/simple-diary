@@ -49,8 +49,8 @@ if (null !== stackDriverConfig) {
 // other imports depends upon previous resolvers
 import connectDb from './db/mongo';
 //// Services
-require('./services/userService');
-require('./services/journalService');
+require('./services/UserService');
+require('./services/JournalService');
 //// Services
 import enablePassportAuth from './auth/passport';
 

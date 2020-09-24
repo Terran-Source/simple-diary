@@ -1,7 +1,7 @@
 import { Strategy as googleStrategy } from 'passport-google-oauth20';
 import { getUserId } from './common';
 import { isProd } from '../logger/common';
-const userService = Injector.resolve('userService');
+const userService = Injector.resolve('UserService');
 const passport = Injector.resolve('passport');
 const googleConfig = Injector.resolve('googleConfig');
 

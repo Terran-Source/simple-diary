@@ -9,43 +9,17 @@ interface Injector {
   remove(service: string): boolean;
 }
 
-// declare namespace Logger {
+// declare namespace GlobalLogger {
 //   type LogLevelString = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 //   type LogLevel = LogLevelString | number;
-
-//   const levelFromName: { [name in LogLevelString]: number };
-//   const nameFromLevel: { [level: number]: string };
-
-//   interface Stream {
-//     type?: string;
-//     level?: LogLevel;
-//     path?: string;
-//     stream?: NodeJS.WritableStream | Stream;
-//     closeOnExit?: boolean;
-//     period?: string;
-//     count?: number;
-//     name?: string;
-//     reemitErrorEvents?: boolean;
-//   }
-
-//   type Serializer = (input: any) => any;
-
-//   interface Serializers {
-//     [key: string]: Serializer;
-//   }
 // }
 
 interface Logger {
-  addStream(stream: Logger.Stream): void;
-  addSerializers(serializers: Logger.Serializers): void;
-  child(options: Object, simple?: boolean): Logger;
-  reopenFileStreams(): void;
-
   level(): number;
-  level(value: Logger.LogLevel): void;
+  // level(value: GlobalLogger.LogLevel): void;
   levels(): number[];
   levels(name: number | string): number;
-  levels(name: number | string, value: Logger.LogLevel): void;
+  // levels(name: number | string, value: GlobalLogger.LogLevel): void;
 
   fields: any;
   src: boolean;
