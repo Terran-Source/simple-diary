@@ -4,7 +4,7 @@ const JournalService = mongoose.model('Journal', JournalSchema);
 Injector.add('JournalService', JournalService);
 
 JournalService.userJournals = async function (user: any) {
-  return await this.find({ user }).lean();
+  return await this.find({ user }).lean({ virtuals: true });
 };
 
 export default JournalService;

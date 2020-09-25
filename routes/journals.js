@@ -9,8 +9,8 @@ router.get('/add', ensureAuthenticated, (req, res) => {
   res.render('journals/add');
 });
 
-// @desc  Add journals page
-// @route POST /journals/add
+// @desc  Add journal
+// @route POST /journals
 router.post('/', ensureAuthenticated, async (req, res) => {
   try {
     req.body.user = req.user.id;

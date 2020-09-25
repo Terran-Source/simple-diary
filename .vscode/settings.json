@@ -1,14 +1,16 @@
 {
     "cSpell.words": [
-        "ESNEXT",
-        "Sidenav",
-        "crossorigin",
-        "downlevel",
-        "esversion",
-        "resave",
-        "saslprep",
-        "serializers",
-        "topnav",
-        "tsbuildinfo"
+      "Datepicker",
+      "ESNEXT",
+      "Sidenav",
+      "crossorigin",
+      "downlevel",
+      "esversion",
+      "resave",
+      "saslprep",
+      "serializers",
+      "topnav",
+      "tsbuildinfo",
+      "virtuals"
     ]
 }

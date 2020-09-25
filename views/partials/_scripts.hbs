@@ -1,4 +1,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"
+  integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg=="
+  crossorigin="anonymous"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     var sideNav = document.querySelector('ul.sidenav');
@@ -11,5 +14,13 @@
     M.FormSelect.init(formSelects);
     var tooltips = document.querySelectorAll('.tipped');
     M.Tooltip.init(tooltips);
+    var datePickers = document.querySelectorAll('input.date-picker');
+    M.Datepicker.init(datePickers, {
+      autoClose: true,
+      format: 'dd/mm/yyyy',
+      defaultDate: new Date(),
+      setDefaultDate: true,
+      parse: function (dateString) { return moment(dateString, 'DD/MM/YYYY', true); }
+    });
   });
 </script>

@@ -1,6 +1,7 @@
-import mongoose from 'mongoose';
-import moment from 'moment';
-import extend from 'extend';
+const mongoose = require('mongoose');
+const moment = require('moment');
+const extend = require('extend');
+const mongooseLeanVirtuals = require('mongoose-lean-virtuals');
 const schemaVersion = 1; // update migration logic if changed
 
 const UserSchema = new mongoose.Schema({
@@ -49,7 +50,10 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
-UserSchema.methods.migrateIfPossible = function (): void {
+UserSchema.plugin(mongooseLeanVirtuals);
+UserSchema.set('toJSON', { virtuals: true });
+
+UserSchema.methods.migrateIfPossible = function () {
   while ((this.version || 0) < schemaVersion) {
     switch (this.version) {
       // each case contains migration logic towards next schemaVersion
@@ -63,7 +67,7 @@ UserSchema.methods.migrateIfPossible = function (): void {
   }
 };
 
-UserSchema.methods.newLogin = function (): void {
+UserSchema.methods.newLogin = function () {
   this.migrateIfPossible();
   this.lastLoggedOn = Date.now();
 };
@@ -73,7 +77,7 @@ UserSchema.methods.logout = function () {
   this.save();
 };
 
-UserSchema.methods.toDisplayJson = function (): Object {
+UserSchema.methods.toDisplayJson = function () {
   return extend(true, this.toJSON(), {
     lastLoggedOn: moment(this.lastLoggedOn).fromNow(),
     // .format('[Last logged on] dddd, Do MMM YYYY, h:mm:ss a'),

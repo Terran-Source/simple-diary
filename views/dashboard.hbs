@@ -6,6 +6,7 @@
 <table class="striped">
   <thead>
     <tr>
+      <th>Date</th>
       <th>Title</th>
       <th>Created</th>
       <th>Updated</th>
@@ -16,9 +17,10 @@
   <tbody>
     {{#each journals}}
     <tr>
+      <td>{{selectedDate}}</td>
       <td><a href="/journals/{{_id}}"></a>{{title}}</td>
-      <td>{{createdOn}}</td>
-      <td>{{updatedOn}}</td>
+      <td>{{createdAt}}</td>
+      <td>{{updatedAt}}</td>
       <td><span class="dash-status">{{status}}</span></td>
       <td></td>
     </tr>
@@ -27,7 +29,7 @@
 </table>
 {{else}}
 <p>
-  You hav no journal entry so far. Let's create one...
+  You have no journal entry so far. Let's create one...
   <a href="/journals/add" class="btn-floating btn-large waves-effect waves-light red"><i class="fas fa-plus"></i></a>
 </p>
 {{/if}}
