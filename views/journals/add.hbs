@@ -3,7 +3,7 @@
   <form action="/journals" method="POST" class="col s12">
     <div class="row">
       <div class="input-field">
-        <input type="text" id="journal-title" name="title">
+        <input type="text" id="journal-title-{{userId}}" name="title">
         <label for="journal-title">Title</label>
       </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="section switch">
           <label>
             <span class="grey-text text-darken-3">Draft</span>
-            <input type="checkbox" id="journal-status" name="published" disabled>
+            <input type="checkbox" id="journal-status-{{userId}}" name="published" disabled>
             <span class="lever"></span>
             <span class="amber-text text-darken-3">Published</span>
           </label>
@@ -44,7 +44,7 @@
         <div class="section switch">
           <label>
             <span class="green-text text-darken-3">Public</span>
-            <input type="checkbox" id="journal-privacy" name="private" checked>
+            <input type="checkbox" id="journal-privacy-{{userId}}" name="private" checked>
             <span class="lever"></span>
             <span class="amber-text text-darken-3">Private</span>
           </label>
@@ -57,7 +57,7 @@
         </label>
         <div class="divider"></div>
         <div class="input-field">
-          <input type="text" id="journal-date" name="selectedDate" class="date-picker">
+          <input type="text" id="journal-date-{{userId}}" name="selectedDate" class="center-align date-picker" readonly>
           {{!-- <label for="journal-date">Journal Date</label> --}}
         </div>
       </div>
@@ -66,7 +66,7 @@
     <div class="row">
       <div class="input-field">
         <h5>Journal Entry:</h5>
-        <textarea id="journal-body" name="body"></textarea>
+        <textarea id="journal-body-{{userId}}" name="body"></textarea>
       </div>
     </div>
 
@@ -77,10 +77,9 @@
     </div>
   </form>
 </div>
-<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    var journalBody = document.querySelector('#journal-body');
+    var journalBody = document.querySelector('#journal-body-{{userId}}');
     var editor;
     ClassicEditor
       .create(journalBody)

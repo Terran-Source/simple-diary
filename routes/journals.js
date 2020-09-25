@@ -6,7 +6,9 @@ const journalService = Injector.resolve('JournalService');
 // @desc  Add journals page
 // @route GET /journals/add
 router.get('/add', ensureAuthenticated, (req, res) => {
-  res.render('journals/add');
+  res.render('journals/add', {
+    userId: req.user.id,
+  });
 });
 
 // @desc  Add journal
