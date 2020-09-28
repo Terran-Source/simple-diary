@@ -5,6 +5,7 @@ global.Injector = new InjectorBase();
 import express from 'express';
 import expHbs from 'express-handlebars';
 import session from 'express-session';
+import { formatDate } from './helper/hbs';
 import path from 'path';
 const { loadConfig } = require('dots-config');
 
@@ -63,7 +64,10 @@ connectDb(appConfig.db['mongo']).then((mongoose) => {
   //// Middleware
   // - Handlebars template engine
   app.set('views', path.join(__dirname, 'views'));
-  app.engine('.hbs', expHbs({ defaultLayout: 'main', extname: '.hbs' }));
+  app.engine(
+    '.hbs',
+    expHbs({ helpers: { formatDate }, defaultLayout: 'main', extname: '.hbs' })
+  );
   app.set('view engine', '.hbs');
 
   // - Session

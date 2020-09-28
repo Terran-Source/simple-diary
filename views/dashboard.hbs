@@ -17,10 +17,12 @@
   <tbody>
     {{#each journals}}
     <tr>
-      <td>{{selectedDate}}</td>
-      <td><a href="/journals/{{_id}}"></a>{{title}}</td>
-      <td>{{createdAt}}</td>
-      <td>{{updatedAt}}</td>
+      <td>
+        <a href="/journals/date/{{formatDate journalDate 'YYYYMMDD'}}">{{formatDate journalDate 'Do MMM, YYYY'}}</a>
+      </td>
+      <td><a href="/journals/{{id}}">{{title}}</a></td>
+      <td>{{formatDate createdAt 'DD/MM/YYYY, HH:mm:ss z' true}}</td>
+      <td>{{formatDate updatedAt 'DD/MM/YYYY, HH:mm:ss z' true}}</td>
       <td><span class="dash-status">{{status}}</span></td>
       <td></td>
     </tr>

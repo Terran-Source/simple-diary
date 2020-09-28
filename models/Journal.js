@@ -39,11 +39,11 @@ const JournalSchema = new mongoose.Schema({
   images: [String],
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: moment.utc,
   },
   updatedAt: {
     type: Date,
-    default: Date.now,
+    default: moment.utc,
   },
   version: {
     type: Number,
@@ -56,10 +56,10 @@ JournalSchema.set('toJSON', { virtuals: true });
 
 JournalSchema.virtual('selectedDate')
   .get(function () {
-    return moment(this.journalDate).format('DD/MM/YYYY');
+    return moment.utc(this.journalDate).format('DD/MM/YYYY');
   })
   .set(function (value) {
-    this.journalDate = moment(value, 'DD/MM/YYYY', true);
+    this.journalDate = moment.utc(value, 'DD/MM/YYYY', true);
   });
 
 JournalSchema.virtual('privacy').get(function () {
@@ -90,7 +90,7 @@ JournalSchema.methods.migrateIfPossible = function () {
 
 JournalSchema.methods.updateJournal = function () {
   this.migrateIfPossible();
-  this.updatedOn = Date.now();
+  this.updatedOn = moment.utc();
 };
 
 JournalSchema.methods.toDisplayJson = function () {

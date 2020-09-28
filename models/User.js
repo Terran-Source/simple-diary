@@ -38,11 +38,11 @@ const UserSchema = new mongoose.Schema({
   images: [String],
   joinedOn: {
     type: Date,
-    default: Date.now,
+    default: moment.utc,
   },
   lastLoggedOn: {
     type: Date,
-    default: Date.now,
+    default: moment.utc,
   },
   version: {
     type: Number,
@@ -69,17 +69,17 @@ UserSchema.methods.migrateIfPossible = function () {
 
 UserSchema.methods.newLogin = function () {
   this.migrateIfPossible();
-  this.lastLoggedOn = Date.now();
+  this.lastLoggedOn = moment.utc();
 };
 
 UserSchema.methods.logout = function () {
-  this.lastLoggedOn = Date.now();
+  this.lastLoggedOn = moment.utc();
   this.save();
 };
 
 UserSchema.methods.toDisplayJson = function () {
   return extend(true, this.toJSON(), {
-    lastLoggedOn: moment(this.lastLoggedOn).fromNow(),
+    lastLoggedOn: moment.utc(this.lastLoggedOn).fromNow(),
     // .format('[Last logged on] dddd, Do MMM YYYY, h:mm:ss a'),
     image: this.images[0],
   });
