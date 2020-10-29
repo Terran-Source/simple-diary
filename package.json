@@ -43,20 +43,20 @@
     "custom-exception": "^0.1.2",
     "dots-config": "^2.0.1",
     "express": "^4.17.1",
-    "express-handlebars": "^5.1.0",
+    "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "extend": "^3.0.2",
     "he": "^1.2.0",
     "method-override": "^3.0.0",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.9",
-    "mongoose-lean-virtuals": "^0.7.1",
+    "mongoose": "^5.10.11",
+    "mongoose-lean-virtuals": "^0.7.2",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
     "saslprep": "^1.0.3",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.3"
+    "typescript": "^4.0.5"
   },
   "devDependencies": {
     "@types/bunyan": "^1.8.6",
@@ -64,11 +64,11 @@
     "@types/express-handlebars": "^3.1.0",
     "@types/express-session": "^1.17.0",
     "@types/mongoose": "^5.7.36",
-    "@types/morgan": "^1.9.1",
-    "@types/node": "^14.11.8",
+    "@types/morgan": "^1.9.2",
+    "@types/node": "^14.14.6",
     "@types/passport": "^1.0.4",
     "@types/passport-google-oauth20": "^2.0.4",
     "gulp": "^4.0.2",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.6"
   }
 }
