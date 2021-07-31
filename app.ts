@@ -53,11 +53,12 @@ if (null !== stackDriverConfig) {
 
 // other imports depends upon previous resolvers
 import connectDb from './db/mongo';
-//// Services
+// Services
 require('./services/UserService');
 require('./services/JournalService');
-//// Services
+
 import enablePassportAuth from './auth/passport';
+import MongoStore from 'connect-mongo';
 
 // Connect to Database
 connectDb(appConfig.db['mongo']).then((mongoose) => {
@@ -71,14 +72,13 @@ connectDb(appConfig.db['mongo']).then((mongoose) => {
   app.set('view engine', '.hbs');
 
   // - Session
-  const MongoStore = require('connect-mongo')(session);
   let sessionOptions: session.SessionOptions = {
     secret: appConfig.session.secret,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({
-      mongooseConnection: mongoose.connection,
-      collection: appConfig.session.collection,
+    store: MongoStore.create({
+      mongoUrl: appConfig.db.mongo.uri,
+      collectionName: appConfig.session.collection,
     }),
   };
   if (isProd) {

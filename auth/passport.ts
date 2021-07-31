@@ -9,7 +9,7 @@ const enablePassportAuth = (): void => {
     done(null, user.userId);
   });
 
-  passport.deserializeUser((userId: string, done: done) => {
+  passport.deserializeUser((userId, done) => {
     userService.findOne({ userId }, done);
   });
 

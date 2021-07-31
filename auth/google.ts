@@ -13,7 +13,7 @@ const googleAuth = (): void => {
         clientSecret: googleConfig.clientSecret,
         callbackURL: '/auth/google/callback',
       },
-      async (accessToken, refreshToken, profile, done: done) => {
+      async (accessToken, refreshToken, profile, done) => {
         const userId = getUserId(profile);
 
         if (!isProd) {
@@ -61,7 +61,7 @@ const googleAuth = (): void => {
           );
         } catch (error) {
           Logger.error({ err: error }, error.message);
-          done(error.message, null);
+          done(error.message);
         }
       }
     )
